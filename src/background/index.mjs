@@ -10,6 +10,7 @@ import {
   generateAnswersWithGptCompletionApi,
 } from '../services/apis/openai-api'
 import { generateAnswersWithCustomApi } from '../services/apis/custom-api.mjs'
+import { generateAnswersWithCnvrgApi } from '../services/apis/cnvrg-api.mjs'
 import { generateAnswersWithAzureOpenaiApi } from '../services/apis/azure-openai-api.mjs'
 import { generateAnswersWithClaudeApi } from '../services/apis/claude-api.mjs'
 import { generateAnswersWithChatGLMApi } from '../services/apis/chatglm-api.mjs'
@@ -25,6 +26,7 @@ import {
   claudeWebModelKeys,
   moonshotWebModelKeys,
   customApiModelKeys,
+  cnvrgApiModelKeys,
   defaultConfig,
   getUserConfig,
   githubThirdPartyApiModelKeys,
@@ -170,6 +172,14 @@ async function executeApi(session, port, config) {
       session,
       config,
       session.modelName,
+    )
+  } else if (cnvrgApiModelKeys.includes(session.modelName)) {
+    await generateAnswersWithCnvrgApi(
+      port,
+      session.question,
+      session,
+      config.cnvrgApiKey,
+      config.cnvrgModelName,
     )
   }
 }

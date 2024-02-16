@@ -26,7 +26,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     session.conversationRecords.slice(-config.maxConversationContextLength),
     false,
   )
-  // prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
+  //prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
   prompt.push({ role: 'user', content: question })
   const apiUrl = config.customModelApiUrl
 
@@ -34,17 +34,12 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
   let finished = false
   await fetchSSE(apiUrl, {
     method: 'POST',
-    signal: controller.signal,
     headers: {
+      'Cnvrg-Api-Key': `${apiKey}`,
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      messages: prompt,
-      model: modelName,
-      stream: true,
-      max_tokens: config.maxResponseTokenLength,
-      temperature: config.temperature,
+      input_params: question,
     }),
     onMessage(message) {
       console.debug('sse message', message)
@@ -90,13 +85,5 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
       port.postMessage({ done: true })
       port.onMessage.removeListener(messageListener)
       port.onDisconnect.removeListener(disconnectListener)
-    },
-    async onError(resp) {
-      port.onMessage.removeListener(messageListener)
-      port.onDisconnect.removeListener(disconnectListener)
-      if (resp instanceof Error) throw resp
-      const error = await resp.json().catch(() => ({}))
-      throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)
-    },
-  })
+    })
 }

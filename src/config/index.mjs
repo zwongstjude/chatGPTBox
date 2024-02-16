@@ -46,6 +46,7 @@ export const chatgptApiModelKeys = [
   'chatgptApi4_128k_0125_preview',
 ]
 export const customApiModelKeys = ['customModel']
+export const cnvrgApiModelKeys = ['cnvrgModel']
 export const azureOpenAiApiModelKeys = ['azureOpenAi']
 export const claudeApiModelKeys = ['claude2Api']
 export const chatglmApiModelKeys = ['chatglmTurbo']
@@ -120,6 +121,7 @@ export const Models = {
   gptApiDavinci: { value: 'text-davinci-003', desc: 'GPT-3.5' },
 
   customModel: { value: '', desc: 'Custom Model' },
+  cnvrgModel: { value: '', desc: 'Cnvrg Model' },
   azureOpenAi: { value: '', desc: 'ChatGPT (Azure)' },
   waylaidwandererApi: { value: '', desc: 'Waylaidwanderer API (Github)' },
 
@@ -182,6 +184,7 @@ export const defaultConfig = {
   chatglmApiKey: '',
 
   customApiKey: '',
+  cnvrgApiKey: '',
 
   /** @type {keyof ModelMode}*/
   modelMode: 'balanced',
@@ -190,6 +193,8 @@ export const defaultConfig = {
   customModelName: 'gpt-3.5-turbo',
   githubThirdPartyUrl: 'http://127.0.0.1:3000/conversation',
 
+  cnvrgModelApiUrl: 'https://tinyllama-3-1.cnvrg.stjude.org/api/v1/endpoints/wnfmkkbytjsex6fibuxy',
+  cnvrgModelName: 'tinyllamacnvrg',
   // advanced
 
   maxResponseTokenLength: 1000,
@@ -217,6 +222,7 @@ export const defaultConfig = {
     'bingFree4',
     'chatglmTurbo',
     'customModel',
+    'cnvrgModel',
     'azureOpenAi',
   ],
   activeSelectionTools: ['translate', 'summary', 'polish', 'code', 'ask'],
@@ -303,6 +309,10 @@ export function isUsingMultiModeModel(configOrSession) {
 
 export function isUsingCustomModel(configOrSession) {
   return customApiModelKeys.includes(configOrSession.modelName)
+}
+
+export function isUsingCnvrgModel(configOrSession) {
+  return cnvrgApiModelKeys.includes(configOrSession.modelName)
 }
 
 export function isUsingChatGLMApi(configOrSession) {

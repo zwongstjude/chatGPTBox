@@ -18,7 +18,7 @@ import { pushRecord, setAbortController } from './shared.mjs'
  * @param {string} apiKey
  * @param {string} modelName
  */
-export async function generateAnswersWithCustomApi(port, question, session, apiKey, modelName) {
+export async function generateAnswersWithCnvrgApi(port, question, session, apiKey, modelName) {
   const { controller, messageListener, disconnectListener } = setAbortController(port)
 
   const config = await getUserConfig()
@@ -26,7 +26,7 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     session.conversationRecords.slice(-config.maxConversationContextLength),
     false,
   )
-  //prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
+  //prompt.unshift({ role: 'system', content: await getCnvrgApiPromptBase() })
   prompt.push({ role: 'user', content: question })
   const apiUrl = config.customModelApiUrl
 

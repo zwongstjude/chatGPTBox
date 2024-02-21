@@ -132,8 +132,9 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
   })
     .then((r) => r.text())
     .then((result) => {
+      console.log(result)
       let response = JSON.parse(result).prediction
-      response = response.replace(/.*\n.*\n.*\n.*\n.*\<\|assistant\|\>/gm, '')
+      response = response.replace(/.*\<\|assistant\|\>/gs, '')
       console.log(response)
       port.postMessage({ answer: response, done: true, session: null })
 

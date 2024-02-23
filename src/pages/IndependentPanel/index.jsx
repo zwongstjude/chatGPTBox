@@ -17,14 +17,3 @@ Browser.runtime.onMessage.addListener(async (message) => {
   }
 })
 render(<App />, document.getElementById('app'))
-
-export const templateConfig = {
-  list: {
-    label: 'List',
-    message: 'Create a list of the following',
-  },
-  friendly: {
-    label: 'Friendly',
-    message: 'Rewrite the following in a friendlier tone',
-  },
-}

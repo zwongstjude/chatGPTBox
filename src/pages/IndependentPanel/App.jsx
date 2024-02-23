@@ -16,6 +16,7 @@ import DeleteButton from '../../components/DeleteButton'
 import { openUrl } from '../../utils/index.mjs'
 import Browser from 'webextension-polyfill'
 import FileSaver from 'file-saver'
+import { config as toolsConfig } from '../../content-script/selection-tools/index.mjs'
 
 function App() {
   const { t } = useTranslation()
@@ -98,6 +99,13 @@ function App() {
     await setSessionIdSafe(sessions[0].sessionId)
   }
 
+  const appendTemplate = async (key) => {
+    console.log(key)
+    document.querySelector(
+      '#app > div > div > div.chat-content > div > div > div.input-box > div > textarea',
+    ).value = await toolsConfig[key].genPrompt()
+  }
+
   return (
     <div className="IndependentPanel">
       <div className="chat-container">
@@ -144,6 +152,17 @@ function App() {
                 </button>
               ),
             )}
+          </div>
+          <div className="prompt-template-group">
+            {config.selectionTools.map((key) => (
+              <button
+                onClick={() => {
+                  appendTemplate(key)
+                }}
+              >
+                {t(toolsConfig[key].label)}
+              </button>
+            ))}
           </div>
           <hr />
           <div className="chat-sidebar-button-group">

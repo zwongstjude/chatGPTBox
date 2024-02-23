@@ -8,6 +8,11 @@ import {
   Braces,
   Globe,
   ChatText,
+  CardChecklist,
+  EmojiLaughingFill,
+  Pencil,
+  ArrowsCollapse,
+  ArrowsExpand,
 } from 'react-bootstrap-icons'
 import { getPreferredLanguage } from '../../config/language.mjs'
 
@@ -121,6 +126,39 @@ export const config = {
     label: 'Ask',
     genPrompt: createGenPrompt({
       message: 'Analyze the following content and express your opinion, or give your answer',
+      includeLanguagePrefix: true,
+    }),
+  },
+  list: {
+    icon: <CardChecklist />,
+    label: 'List',
+    genPrompt: createGenPrompt({
+      message: 'Create a list of the following',
+      includeLanguagePrefix: true,
+    }),
+  },
+  friendly: {
+    icon: <EmojiLaughingFill />,
+    label: 'Friendly',
+    genPrompt: createGenPrompt({
+      message: 'Rewrite the following in a friendlier tone',
+      includeLanguagePrefix: true,
+    }),
+  },
+  shorten: {
+    icon: <ArrowsCollapse />,
+    label: 'Shorten',
+    genPrompt: createGenPrompt({
+      message: 'Rewrite the following more concisely, return around a sentence or two',
+      includeLanguagePrefix: true,
+    }),
+  },
+  lengthen: {
+    icon: <ArrowsExpand />,
+    label: 'Lenghten',
+    genPrompt: createGenPrompt({
+      message:
+        'Lengthen the following sentence, filling it with more professional words and with more relavant details',
       includeLanguagePrefix: true,
     }),
   },

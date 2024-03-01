@@ -6,6 +6,7 @@ import {
   isUsingAzureOpenAi,
   isUsingChatGLMApi,
   isUsingClaudeApi,
+  isUsingCnvrgModel,
   isUsingCustomModel,
   isUsingCustomNameOnlyModel,
   isUsingGithubThirdPartyApi,
@@ -228,6 +229,18 @@ export function GeneralPart({ config, updateConfig }) {
               )}
             </span>
           )}
+          {isUsingCnvrgModel(config) && (
+            <input
+              style="width: 50%;"
+              type="text"
+              value={config.customModelName}
+              placeholder={t('Model Name')}
+              onChange={(e) => {
+                const customModelName = e.target.value
+                updateConfig({ customModelName: customModelName })
+              }}
+            />
+          )}
           {isUsingCustomModel(config) && (
             <input
               style="width: 50%;"
@@ -321,6 +334,28 @@ export function GeneralPart({ config, updateConfig }) {
             onChange={(e) => {
               const value = e.target.value
               updateConfig({ customModelApiUrl: value })
+            }}
+          />
+        )}
+        {isUsingCnvrgModel(config) && (
+          <input
+            type="text"
+            value={config.cnvrgModelApiUrl}
+            placeholder={t('Cnvrg Model API Url')}
+            onChange={(e) => {
+              const value = e.target.value
+              updateConfig({ cnvrgModelApiUrl: value })
+            }}
+          />
+        )}
+        {isUsingCnvrgModel(config) && (
+          <input
+            type="password"
+            value={config.cnvrgApiKey}
+            placeholder={t('API Key')}
+            onChange={(e) => {
+              const apiKey = e.target.value
+              updateConfig({ cnvrgApiKey: apiKey })
             }}
           />
         )}

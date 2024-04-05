@@ -40,47 +40,6 @@ export async function generateAnswersWithCnvrgApi(port, question, session, apiKe
     body: JSON.stringify({
       input_params: question,
     }),
-    // onMessage(message) {
-    //   console.debug('sse message', message)
-    //   if (message.trim() === '[DONE]') {
-    //     pushRecord(session, question, answer)
-    //     console.debug('conversation history', { content: session.conversationRecords })
-    //     return
-    //   }
-    //   let data
-    //   try {
-    //     data = JSON.parse(message)
-    //   } catch (error) {
-    //     console.debug('json error', error)
-    //     return
-    //   }
-
-    //   if (data.response) answer = data.response
-    //   else
-    //     answer +=
-    //       data.choices[0]?.delta?.content ||
-    //       data.choices[0]?.message?.content ||
-    //       data.choices[0]?.text ||
-    //       ''
-    //   port.postMessage({ answer: answer, done: true, session: null })
-
-    //   port.postMessage({ done: true })
-    //   port.onMessage.removeListener(messageListener)
-    //   port.onDisconnect.removeListener(disconnectListener)
-    // },
-    // async onStart() {},
-    // async onEnd() {
-    //   port.postMessage({ done: true })
-    //   port.onMessage.removeListener(messageListener)
-    //   port.onDisconnect.removeListener(disconnectListener)
-    // },
-    // async onError(resp) {
-    //   port.onMessage.removeListener(messageListener)
-    //   port.onDisconnect.removeListener(disconnectListener)
-    //   if (resp instanceof Error) throw resp
-    //   const error = await resp.json().catch(() => ({}))
-    //   throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)
-    // },
   })
     .then((r) => r.text())
     .then((result) => {

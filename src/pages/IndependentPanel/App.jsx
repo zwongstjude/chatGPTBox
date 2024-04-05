@@ -19,85 +19,85 @@ import FileSaver from 'file-saver'
 
 const templateConfig = [
   {
-     "id":0,
-     "label":"Outline",
-     "message":"Write an outline for a "
+    id: 0,
+    label: 'Outline',
+    message: 'Write an outline for a ',
   },
   {
-     "id":1,
-     "label":"Bullet list",
-     "message":"Write a bullet list of "
+    id: 1,
+    label: 'Bullet list',
+    message: 'Write a bullet list of ',
   },
   {
-     "id":2,
-     "label":"Headline",
-     "message":"Write a bullet list of "
+    id: 2,
+    label: 'Headline',
+    message: 'Write a bullet list of ',
   },
   {
-     "id":3,
-     "label":"Paragraph",
-     "message":"Write a paragraph about "
+    id: 3,
+    label: 'Paragraph',
+    message: 'Write a paragraph about ',
   },
   {
-     "id":4,
-     "label":"Sentence",
-     "message":"Write a sentence about "
+    id: 4,
+    label: 'Sentence',
+    message: 'Write a sentence about ',
   },
   {
-     "id":5,
-     "label":"Brainstorm ideas",
-     "message":"Give me a few ideas for "
+    id: 5,
+    label: 'Brainstorm ideas',
+    message: 'Give me a few ideas for ',
   },
   {
-     "id":6,
-     "label":"Email",
-     "message":"Write an email about "
+    id: 6,
+    label: 'Email',
+    message: 'Write an email about ',
   },
   {
-     "id":7,
-     "label":"Letter (formal)",
-     "message":"Write a formal letter about "
+    id: 7,
+    label: 'Letter (formal)',
+    message: 'Write a formal letter about ',
   },
   {
-     "id":8,
-     "label":"Social post..",
-     "message":"Write a social media post about "
+    id: 8,
+    label: 'Social post..',
+    message: 'Write a social media post about ',
   },
   {
-     "id":10,
-     "label":"A couple paragraphs",
-     "message":"Write a couple paragraphs about "
+    id: 10,
+    label: 'A couple paragraphs',
+    message: 'Write a couple paragraphs about ',
   },
   {
-     "id":11,
-     "label":"Advertisement",
-     "message":"Write an advertising headline and subheadline for a "
+    id: 11,
+    label: 'Advertisement',
+    message: 'Write an advertising headline and subheadline for a ',
   },
   {
-     "id":12,
-     "label":"Outline for a blog post",
-     "message":"Write an outline for a blog post about "
+    id: 12,
+    label: 'Outline for a blog post',
+    message: 'Write an outline for a blog post about ',
   },
   {
-     "id":13,
-     "label":"Blog post section",
-     "message":"Write a blog post section about "
+    id: 13,
+    label: 'Blog post section',
+    message: 'Write a blog post section about ',
   },
   {
-     "id":14,
-     "label":"Website section",
-     "message":"Write a website section about "
+    id: 14,
+    label: 'Website section',
+    message: 'Write a website section about ',
   },
   {
-     "id":15,
-     "label":"Information about",
-     "message":"Give me some information about "
+    id: 15,
+    label: 'Information about',
+    message: 'Give me some information about ',
   },
   {
-     "id":16,
-     "label":"Letter (job application)",
-     "message":"Write a job application letter applying to a position for a "
-  }
+    id: 16,
+    label: 'Letter (job application)',
+    message: 'Write a job application letter applying to a position for a ',
+  },
 ]
 
 function App() {
@@ -189,7 +189,7 @@ function App() {
   const appendTemplate = async (id) => {
     let ele = document.querySelector(
       '#app > div > div > div.chat-content > div > div > div.input-box > div > textarea',
-    );
+    )
     ele.value = templateConfig[id].message
     ele.focus()
   }

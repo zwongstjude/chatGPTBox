@@ -26,26 +26,26 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     session.conversationRecords.slice(-config.maxConversationContextLength),
     false,
   )
-  // prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
+  //prompt.unshift({ role: 'system', content: await getCustomApiPromptBase() })
   prompt.push({ role: 'user', content: question })
   const apiUrl = config.customModelApiUrl
 
   let answer = ''
+<<<<<<< HEAD
   let finished = false
   await fetchSSE(apiUrl, {
+=======
+  await fetch(apiUrl, {
+>>>>>>> 240ad8e (custom backend changed to cnvrg, however, need to separate into specific cnvrg file)
     method: 'POST',
-    signal: controller.signal,
     headers: {
+      'Cnvrg-Api-Key': `${apiKey}`,
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      messages: prompt,
-      model: modelName,
-      stream: true,
-      max_tokens: config.maxResponseTokenLength,
-      temperature: config.temperature,
+      input_params: question,
     }),
+<<<<<<< HEAD
     onMessage(message) {
       console.debug('sse message', message)
       if (!finished && message.trim() === '[DONE]') {
@@ -87,16 +87,59 @@ export async function generateAnswersWithCustomApi(port, question, session, apiK
     },
     async onStart() {},
     async onEnd() {
+=======
+    // onMessage(message) {
+    //   console.debug('sse message', message)
+    //   if (message.trim() === '[DONE]') {
+    //     pushRecord(session, question, answer)
+    //     console.debug('conversation history', { content: session.conversationRecords })
+    //     return
+    //   }
+    //   let data
+    //   try {
+    //     data = JSON.parse(message)
+    //   } catch (error) {
+    //     console.debug('json error', error)
+    //     return
+    //   }
+
+    //   if (data.response) answer = data.response
+    //   else
+    //     answer +=
+    //       data.choices[0]?.delta?.content ||
+    //       data.choices[0]?.message?.content ||
+    //       data.choices[0]?.text ||
+    //       ''
+    //   port.postMessage({ answer: answer, done: true, session: null })
+
+    //   port.postMessage({ done: true })
+    //   port.onMessage.removeListener(messageListener)
+    //   port.onDisconnect.removeListener(disconnectListener)
+    // },
+    // async onStart() {},
+    // async onEnd() {
+    //   port.postMessage({ done: true })
+    //   port.onMessage.removeListener(messageListener)
+    //   port.onDisconnect.removeListener(disconnectListener)
+    // },
+    // async onError(resp) {
+    //   port.onMessage.removeListener(messageListener)
+    //   port.onDisconnect.removeListener(disconnectListener)
+    //   if (resp instanceof Error) throw resp
+    //   const error = await resp.json().catch(() => ({}))
+    //   throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)
+    // },
+  })
+    .then((r) => r.text())
+    .then((result) => {
+      let response = JSON.parse(result).prediction
+      response = response.replace(/.*\n.*\n.*\n.*\n.*\<\|assistant\|\>/gm, '')
+      console.log(response)
+      port.postMessage({ answer: response, done: true, session: null })
+
+>>>>>>> 240ad8e (custom backend changed to cnvrg, however, need to separate into specific cnvrg file)
       port.postMessage({ done: true })
       port.onMessage.removeListener(messageListener)
       port.onDisconnect.removeListener(disconnectListener)
-    },
-    async onError(resp) {
-      port.onMessage.removeListener(messageListener)
-      port.onDisconnect.removeListener(disconnectListener)
-      if (resp instanceof Error) throw resp
-      const error = await resp.json().catch(() => ({}))
-      throw new Error(!isEmpty(error) ? JSON.stringify(error) : `${resp.status} ${resp.statusText}`)
-    },
-  })
+    })
 }
